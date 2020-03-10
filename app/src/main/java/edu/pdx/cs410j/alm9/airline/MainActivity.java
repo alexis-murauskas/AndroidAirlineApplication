@@ -2,7 +2,6 @@ package edu.pdx.cs410j.alm9.airline;
 
 import android.os.Bundle;
 
-import com.example.airlineapplication.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 

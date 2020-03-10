@@ -10,6 +10,8 @@
         android:id="@+id/textview_readme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textAlignment="center"
         android:text="@string/readme"
         app:layout_constraintBottom_toTopOf="@id/button_back"
         app:layout_constraintEnd_toEndOf="parent"
