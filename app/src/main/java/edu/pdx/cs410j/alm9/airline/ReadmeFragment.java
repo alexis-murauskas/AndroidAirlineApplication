@@ -1,4 +1,4 @@
-package com.example.airlineapplication;
+package edu.pdx.cs410j.alm9.airline;
 
 import android.app.Activity;
 
