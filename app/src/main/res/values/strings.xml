@@ -12,6 +12,16 @@
 
     <!-- Airline resources -->
     <string name="readme_fragment_label">README</string>
-    <string name="readme">README</string>
+    <string name="readme">Alexis Murauskas - CS410J - Winter2020 - Project6\n
+            Airline Android Application\n\n
+            Usage: add and view collections of airlines and associated flights\n\n
+            A new airline contains the following information:\n\n
+            Name - the name of the airline\n
+            Flight Number - the flight identifier\n
+            Source - three-letter code of departure airport\n
+            Departs - departure date (m/d/yyyy) and time (h:mm am/pm)\n
+            Destination - three-letter code of arrival airport\n
+            Arrives - arrival date (m/d/yyyy) and time (h:mm am/pm)\n
+    </string>
     <string name="back">Back</string>
 </resources>
