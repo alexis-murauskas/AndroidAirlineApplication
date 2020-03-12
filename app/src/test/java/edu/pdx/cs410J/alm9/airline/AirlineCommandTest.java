@@ -3,7 +3,6 @@ package edu.pdx.cs410J.alm9.airline;
 import org.junit.Test;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 
 import edu.pdx.cs410j.alm9.airline.AirlineCommand;
 import edu.pdx.cs410j.alm9.airline.InputModel;
@@ -13,9 +12,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class AirlineCommandTest {
 
-    private static String prefix = TextParserTest.prefix;
-
     private static String[] input = new String[]{
+            "-host",
+            "localhost",
+            "-port",
+            "8080",
             "-README",
             "Airline",
             "1",
@@ -30,6 +31,10 @@ public class AirlineCommandTest {
     };
 
     private static String[] inputWithoutOptions = new String[]{
+            "-host",
+            "localhost",
+            "-port",
+            "8080",
             "Airline",
             "1",
             "PDX",
@@ -43,6 +48,10 @@ public class AirlineCommandTest {
     };
 
     private static String[] inputWithQuotes = new String[]{
+            "-host",
+            "localhost",
+            "-port",
+            "8080",
             "-README",
             "'Airline",
             "Name'",
@@ -58,6 +67,10 @@ public class AirlineCommandTest {
     };
 
     private static String[] badInput = new String[]{
+            "-host",
+            "localhost",
+            "-port",
+            "8080",
             "-README",
             "'Airline",
             "Name",
@@ -85,13 +98,13 @@ public class AirlineCommandTest {
     @Test
     public void inputWithOptionsReturnsSameOptionsInModel() throws ParseException {
         InputModel rv = AirlineCommand.parse(new String[]{"-README"});
-        assertThat(rv.options.contains("-README"), is(true));
+        assertThat(rv.options, is(1));
     }
 
     @Test
-    public void inputWithoutOptionsReturnsEmptyOptionsInModel() throws ParseException {
+    public void inputWithoutAdditionalOptionsReturnsEmptyOptionsInModel() throws ParseException {
         InputModel rv = AirlineCommand.parse(inputWithoutOptions);
-        assertThat(rv.options.isEmpty(), is(true));
+        assertThat(rv.options, is(4));
     }
 
     @Test
@@ -120,6 +133,10 @@ public class AirlineCommandTest {
     @Test (expected = NumberFormatException.class)
     public void flightNumberCantBeALetter() throws ParseException {
         String[] badFlight = new String[]{
+                "-host",
+                "localhost",
+                "-port",
+                "8080",
                 "-README",
                 "Airline",
                 "q",
@@ -139,6 +156,10 @@ public class AirlineCommandTest {
     @Test (expected = IllegalArgumentException.class)
     public void unknownCommandLineArgument() throws ParseException {
         String[] badFlight = new String[]{
+                "-host",
+                "localhost",
+                "-port",
+                "8080",
                 "-README",
                 "Airline",
                 "1",
@@ -165,6 +186,10 @@ public class AirlineCommandTest {
     @Test (expected = IllegalArgumentException.class)
     public void invalidAirportCodeThrowsException() throws ParseException {
         AirlineCommand.parse(new String[]{
+                "-host",
+                "localhost",
+                "-port",
+                "8080",
                 "-README",
                 "Airline",
                 "1",
@@ -182,6 +207,10 @@ public class AirlineCommandTest {
     @Test (expected = ParseException.class)
     public void invalidDateTimeThrowsException() throws ParseException {
         String[] badTime = new String[]{
+                "-host",
+                "localhost",
+                "-port",
+                "8080",
                 "'Airline",
                 "Name'",
                 "1",
@@ -201,6 +230,10 @@ public class AirlineCommandTest {
     @Test
     public void validDateTimeWithMixedCase() throws ParseException {
         String[] args = new String[]{
+                "-host",
+                "localhost",
+                "-port",
+                "8080",
                 "Project3",
                 "100",
                 "CVG",
@@ -222,87 +255,6 @@ public class AirlineCommandTest {
         assertThat(rv.departureTime, is("11/11/1111 11:11 AM"));
     }
 
-    @Test
-    public void validTextFileNameSucceeds() throws ParseException {
-        InputModel rv = AirlineCommand.parse(new String[]{
-                "-textFile",
-                prefix+"airline.txt",
-                "Airline",
-                "1",
-                "PDX",
-                "11/11/1111",
-                "11:11",
-                "AM",
-                "ABQ",
-                "12/12/1212",
-                "12:12",
-                "PM"
-        });
-        assertThat(rv.options.stream().anyMatch(o -> o.contains("-textFile")), is(true));
-        assertThat(rv.options.stream().anyMatch(o -> o.contains(prefix + "airline.txt")), is(true));
-    }
-
-
-    @Test (expected = ArrayIndexOutOfBoundsException.class)
-    public void invalidTextFileNameFails() throws ParseException {
-        AirlineCommand.parse(new String[]{
-                "-textFile",
-                "Airline",
-                "1",
-                "PDX",
-                "11/11/1111",
-                "11:11",
-                "AM",
-                "ABQ",
-                "12/12/1212",
-                "12:12",
-                "PM"
-        });
-    }
-
-    @Test
-    public void shortFileNameCheckSucceeds() {
-        InputModel model = new InputModel();
-        model.options = new ArrayList<>();
-        model.options.add("-textFile");
-        model.options.add(prefix + "airline.txt");
-        model.airline = "Airline";
-
-        AirlineCommand.compareFileName(model);
-    }
-
-    @Test
-    public void fileThatDoesNotExistYetSucceeds () {
-        InputModel model = new InputModel();
-        model.options = new ArrayList<>();
-        model.options.add("-textFile");
-        model.options.add("does-not-exist.txt");
-        model.airline = "Airline";
-
-        AirlineCommand.compareFileName(model);
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void nameMismatchBetweenArgsAndFileFails() {
-        InputModel model = new InputModel();
-        model.options = new ArrayList<>();
-        model.options.add("-textFile");
-        model.options.add(prefix + "name-mismatch.txt");
-        model.airline = "Airline";
-
-        AirlineCommand.compareFileName(model);
-    }
-
-    @Test
-    public void longFileNameCheckSucceeds() {
-        InputModel model = new InputModel();
-        model.options = new ArrayList<>();
-        model.options.add("-textFile");
-        model.options.add(prefix + "long-name.txt");
-        model.airline = "'Long Airline'";
-
-        AirlineCommand.compareFileName(model);
-    }
 
     @Test
     public void correctDatesDoNotThrowException() throws ParseException {
@@ -323,6 +275,10 @@ public class AirlineCommandTest {
     @Test (expected = IllegalArgumentException.class)
     public void nonexistentAirportCodeThrowsException() throws ParseException {
         AirlineCommand.parse(new String[]{
+                "-host",
+                "localhost",
+                "-port",
+                "8080",
                 "-README",
                 "Airline",
                 "1",
