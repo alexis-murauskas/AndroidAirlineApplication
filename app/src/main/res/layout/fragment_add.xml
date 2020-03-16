@@ -10,32 +10,52 @@
         android:layout_height="wrap_content"
         android:hint="@string/required_airline_name"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/button_go"/>
+        app:layout_constraintBottom_toTopOf="@id/textinput_arrive"/>
+
+    <EditText
+        android:id="@+id/textinput_flight_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/flight_number"
+        app:layout_constraintTop_toBottomOf="@id/textinput_airline" />
 
     <EditText
         android:id="@+id/textinput_src"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/source_airport"
-        app:layout_constraintTop_toBottomOf="@id/textinput_airline" />
+        app:layout_constraintTop_toBottomOf="@id/textinput_flight_number" />
+
+    <EditText
+        android:id="@+id/textinput_depart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/departure_m_d_yy_h_mm_am_pm"
+        app:layout_constraintTop_toBottomOf="@id/textinput_src" />
 
     <EditText
         android:id="@+id/textinput_dest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/destination_airport"
-        app:layout_constraintTop_toBottomOf="@id/textinput_src" />
+        app:layout_constraintTop_toBottomOf="@id/textinput_depart" />
+
+    <EditText
+        android:id="@+id/textinput_arrive"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/arrival_m_d_yy_h_mm_am_pm"
+        app:layout_constraintTop_toBottomOf="@id/textinput_dest" />
 
     <ImageButton
-        android:id="@+id/button_go"
+        android:id="@+id/button_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_menu_search"
+        android:layout_marginBottom="24dp"
+        android:src="@android:drawable/ic_input_add"
         app:layout_constraintBottom_toTopOf="@id/button_back"
-        app:layout_constraintTop_toBottomOf="@id/textinput_dest"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
     <Button
         android:id="@+id/button_back"
         android:layout_width="wrap_content"
@@ -45,4 +65,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

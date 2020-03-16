@@ -22,4 +22,13 @@
     <string name="back">Back</string>
     <string name="help">Help</string>
     <string name="search">Search</string>
+    <string name="source_airport">Source Airport</string>
+    <string name="destination_airport">Destination Airport</string>
+    <string name="required_airline_name">Required: Airline Name</string>
+    <string name="close_readme">Close ReadMe</string>
+    <string name="add_new_airline">Add new airline</string>
+    <string name="flight_number">Flight Number</string>
+    <string name="departure_m_d_yy_h_mm_am_pm">Departure (m/d/yy h:mm am/pm)</string>
+    <string name="arrival_m_d_yy_h_mm_am_pm">Arrival (m/d/yy h:mm am/pm)</string>
+    <string name="add_fragment_label">AddFragment</string>
 </resources>

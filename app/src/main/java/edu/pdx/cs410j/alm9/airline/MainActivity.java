@@ -1,10 +1,6 @@
 package edu.pdx.cs410j.alm9.airline;
 
-import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -23,16 +19,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
     }
 
     @Override
@@ -53,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_readme) {
             TextView text = findViewById(R.id.textview_readme);
             text.setVisibility(View.VISIBLE);
-
             ImageButton button = findViewById(R.id.button_close_readme);
             button.setVisibility(View.VISIBLE);
             return true;
@@ -65,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
     public void onReadmeButtonClick(View view) {
         TextView text = findViewById(R.id.textview_readme);
         text.setVisibility(View.INVISIBLE);
-
         view.setVisibility(View.INVISIBLE);
     }
 }

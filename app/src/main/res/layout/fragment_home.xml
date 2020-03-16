@@ -14,7 +14,8 @@
         android:src="@android:drawable/ic_delete"
         android:onClick="onReadmeButtonClick"
         app:layout_constraintBottom_toTopOf="@id/textview_readme"
-        app:layout_constraintRight_toRightOf="@id/textview_readme" />
+        app:layout_constraintRight_toRightOf="@id/textview_readme"
+        android:contentDescription="@string/close_readme" />
 
     <TextView
         android:id="@+id/textview_readme"
@@ -36,6 +37,18 @@
         android:layout_marginBottom="24dp"
         android:text="@string/search"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/button_add"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/button_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:src="@android:drawable/ic_input_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/button_search"
+        android:contentDescription="@string/add_new_airline" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
