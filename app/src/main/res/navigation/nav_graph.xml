@@ -12,6 +12,18 @@
         tools:layout="@layout/fragment_home">
 
         <action
-            android:id="@+id/action_HomeFragment_to_SearchFragment" />
+            android:id="@+id/action_HomeFragment_to_SearchFragment"
+            app:destination="@id/SearchFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/SearchFragment"
+        android:name="edu.pdx.cs410j.alm9.airline.SearchFragment"
+        android:label="@string/search_fragment_label"
+        tools:layout="@layout/fragment_search">
+
+        <action
+            android:id="@+id/action_SearchFragment_to_HomeFragment"
+            app:destination="@id/HomeFragment"/>
     </fragment>
 </navigation>
