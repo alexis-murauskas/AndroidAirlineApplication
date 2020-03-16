@@ -5,8 +5,6 @@ import java.util.ArrayList;
 public class InputModel {
     public int options;
 
-    public boolean readme;
-    public boolean print;
     public boolean search;
     public boolean getAirline;
 

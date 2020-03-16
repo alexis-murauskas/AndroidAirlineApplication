@@ -6,26 +6,25 @@ import androidx.annotation.RequiresApi;
 
 import java.text.ParseException;
 import java.time.format.DateTimeParseException;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 public class AirlineCommand {
     private static final int AIRLINE = 0;
-    private static final int FLIGHT = 0;
-    private static final int SRC = 1;
-    private static final int DEPART = 2;
-    private static final int DTIME = 3;
-    private static final int DPRD = 4;
-    private static final int DEST = 5;
-    private static final int ARRIVE = 6;
-    private static final int ATIME = 7;
-    private static final int APRD = 8;
+    private static final int FLIGHT = 1;
+    private static final int SRC = 2;
+    private static final int DEPART = 3;
+    private static final int DEST = 4;
+    private static final int ARRIVE = 5;
+
+    private static final int SEARCH_SRC = 1;
+    private static final int SEARCH_DEST = 2;
 
     private static final int CODELEN = 3;
 
     private static final List<String> validOptions = Arrays.asList(
-            "-README",
-            "-print",
+            "-getAirline",
             "-search"
     );
 
@@ -49,9 +48,9 @@ public class AirlineCommand {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public static InputModel parse(String[] input) throws ParseException {
         InputModel model = new InputModel();
+
         model = parseOptions(model, input);
         String[] arguments = trimArguments(model.options, input);
-
         model = parseArgs(model, arguments);
 
         return model;
@@ -70,18 +69,14 @@ public class AirlineCommand {
 
         for (String option : validOptions) {
             boolean inputContains = in.contains(option);
-            int position = in.indexOf(option);
 
             if (inputContains) {
                 ++count;
                 switch (validOptions.indexOf(option)) {
                     case 0:
-                        model.readme = true;
+                        model.getAirline = true;
                         break;
                     case 1:
-                        model.print = true;
-                        break;
-                    case 2:
                         model.search = true;
                         break;
                 }
@@ -116,70 +111,25 @@ public class AirlineCommand {
         if (input.length == 0)
             return model;
 
-        ArrayList<String> airline = parseAirline(input);
-        String[] args = trimArguments(airline.size(), input);
-        model.airline = stringifyList(airline);
+        model.airline = input[AIRLINE];
 
-        if (args.length == 0) {
-            model.getAirline = true;
+        if (model.getAirline)
+            return model;
+
+        if (model.search) {
+            model.source = checkAirportCode(input[SEARCH_SRC]);
+            model.destination = checkAirportCode(input[SEARCH_DEST]);
             return model;
         }
 
-        int max = APRD + 1;
-        if (model.search) {
-            model.source = checkAirportCode(args[0]);
-            model.destination = checkAirportCode(args[1]);
-            max = 2;
-        }
-        else {
-            String departs = (args[DEPART] + " " + args[DTIME] + " " + args[DPRD]).toUpperCase();
-            String arrives = (args[ARRIVE] + " " + args[ATIME] + " " + args[APRD]).toUpperCase();
-            model.flightNumber = checkFlight(args[FLIGHT]);
-            model.source = checkAirportCode(args[SRC]);
-            model.departureTime = checkDateTime(departs);
-            model.destination = checkAirportCode(args[DEST]);
-            model.arrivalTime = checkDateTime(arrives);
-            compareDepartureArrivalTimes(model.departureTime, model.arrivalTime);
-        }
-
-        if (args.length > max)
-            throw new IllegalArgumentException("Unknown command line argument");
+        model.flightNumber = checkFlight(input[FLIGHT]);
+        model.source = checkAirportCode(input[SRC]);
+        model.departureTime = checkDateTime(input[DEPART]);
+        model.destination = checkAirportCode(input[DEST]);
+        model.arrivalTime = checkDateTime(input[ARRIVE]);
+        compareDepartureArrivalTimes(model.departureTime, model.arrivalTime);
 
         return model;
-    }
-
-    /**
-     * Checks for an Airline Name, which is either enclosed in quotes or a single word. There are no
-     * rules for names, except that the name must be enclosed in quotes if applicable.
-     *
-     * @param input Current array of user input.
-     * @return A list of all strings included in the Airline Name, which may be one string.
-     */
-    private static ArrayList<String> parseAirline(String[] input) {
-        ArrayList<String> airline = new ArrayList<>();
-        airline.add(input[AIRLINE]);
-        int i;
-
-        if (!input[AIRLINE].startsWith("'"))
-            return airline;
-
-        for (i = AIRLINE + 1; i < input.length && !input[i].endsWith("'"); i++)
-            airline.add(input[i]);
-
-        airline.add(input[i]);
-        return airline;
-    }
-
-    /**
-     * StringifyList is a helper function for parseAirline that collects all the strings in the name into
-     * a single string.
-     *
-     * @param list A list of strings.
-     * @return All strings in the list collected into one string, with words separated by spaces.
-     */
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private static String stringifyList(ArrayList<String> list) {
-        return list.stream().collect(Collectors.joining(" "));
     }
 
     /**

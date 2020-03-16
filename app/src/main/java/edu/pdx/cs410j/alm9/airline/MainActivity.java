@@ -1,21 +1,23 @@
 package edu.pdx.cs410j.alm9.airline;
 
+import android.inputmethodservice.InputMethodService;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.navigation.fragment.NavHostFragment;
-
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.snackbar.Snackbar;
+
+import java.text.ParseException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -61,7 +63,12 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void onAddButtonClick(View v) {
+        String message = "Airline added successfully!";
+
         try {
+            InputMethodManager inputManager = (InputMethodManager) this.getSystemService(INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
             EditText airline = findViewById(R.id.textinput_airline);
             EditText flightNumber = findViewById(R.id.textinput_flight_number);
             EditText src = findViewById(R.id.textinput_src);
@@ -79,8 +86,17 @@ public class MainActivity extends AppCompatActivity {
             };
 
             AirlineCommand.parse(array);
+        } catch (NumberFormatException e) {
+            message = "Error: Flight code isn't an integer";
+        } catch (ArrayIndexOutOfBoundsException e) {
+            message = "Error: Arguments could not be parsed";
+        } catch (ParseException e) {
+            message = "Errorr: Time is malformatted";
         } catch (Exception e) {
-            System.err.println("ADD AIRLINE FAILED" + e.getMessage());
+            message = "Error" + e.getMessage();
         }
+
+        Snackbar.make(v, message, Snackbar.LENGTH_LONG)
+                .show();
     }
 }
