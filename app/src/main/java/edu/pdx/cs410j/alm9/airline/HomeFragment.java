@@ -34,7 +34,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        view.findViewById(R.id.button_add).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.button_new).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(HomeFragment.this)

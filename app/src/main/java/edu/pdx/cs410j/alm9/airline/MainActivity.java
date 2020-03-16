@@ -1,15 +1,21 @@
 package edu.pdx.cs410j.alm9.airline;
 
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,5 +57,30 @@ public class MainActivity extends AppCompatActivity {
         TextView text = findViewById(R.id.textview_readme);
         text.setVisibility(View.INVISIBLE);
         view.setVisibility(View.INVISIBLE);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void onAddButtonClick(View v) {
+        try {
+            EditText airline = findViewById(R.id.textinput_airline);
+            EditText flightNumber = findViewById(R.id.textinput_flight_number);
+            EditText src = findViewById(R.id.textinput_src);
+            EditText depart = findViewById(R.id.textinput_depart);
+            EditText dest = findViewById(R.id.textinput_dest);
+            EditText arrive = findViewById(R.id.textinput_arrive);
+
+            String[] array = {
+                    airline.getText().toString(),
+                    flightNumber.getText().toString(),
+                    src.getText().toString(),
+                    depart.getText().toString(),
+                    dest.getText().toString(),
+                    arrive.getText().toString()
+            };
+
+            AirlineCommand.parse(array);
+        } catch (Exception e) {
+            System.err.println("ADD AIRLINE FAILED" + e.getMessage());
+        }
     }
 }
