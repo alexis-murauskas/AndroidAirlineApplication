@@ -12,17 +12,6 @@
         tools:layout="@layout/fragment_home">
 
         <action
-            android:id="@+id/action_HomeFragment_to_ReadmeFragment"
-            app:destination="@id/ReadmeFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/ReadmeFragment"
-        android:name="edu.pdx.cs410j.alm9.airline.ReadmeFragment"
-        android:label="@string/readme_fragment_label"
-        tools:layout="@layout/fragment_readme">
-
-        <action
-            android:id="@+id/action_ReadmeFragment_to_HomeFragment"
-            app:destination="@id/HomeFragment" />
+            android:id="@+id/action_HomeFragment_to_SearchFragment" />
     </fragment>
 </navigation>

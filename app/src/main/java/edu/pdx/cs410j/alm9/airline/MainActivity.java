@@ -8,12 +8,12 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
     }
 
     @Override
@@ -50,10 +51,21 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_readme) {
-            setContentView(R.layout.fragment_readme);
+            TextView text = findViewById(R.id.textview_readme);
+            text.setVisibility(View.VISIBLE);
+
+            ImageButton button = findViewById(R.id.button_close_readme);
+            button.setVisibility(View.VISIBLE);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onReadmeButtonClick(View view) {
+        TextView text = findViewById(R.id.textview_readme);
+        text.setVisibility(View.INVISIBLE);
+
+        view.setVisibility(View.INVISIBLE);
     }
 }

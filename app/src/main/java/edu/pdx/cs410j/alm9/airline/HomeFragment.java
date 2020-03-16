@@ -25,11 +25,11 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.findViewById(R.id.button_help).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.button_search).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(HomeFragment.this)
-                        .navigate(R.id.action_HomeFragment_to_ReadmeFragment);
+                        .navigate(R.id.action_HomeFragment_to_SearchFragment);
             }
         });
     }
