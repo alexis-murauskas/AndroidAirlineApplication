@@ -21,7 +21,7 @@ public class AirlineController {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void readAirlines(File path) {
-        int tag = 1;
+        int tag = 0;
         File file = new File(path, filePrefix + tag);
 
         while (file.isFile()) {
