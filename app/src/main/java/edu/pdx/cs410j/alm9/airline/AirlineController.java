@@ -38,14 +38,12 @@ public class AirlineController {
         if (airlines.isEmpty())
             return null;
 
-        Optional rv = airlines.stream()
+        Optional<Airline> rv = airlines.stream()
                 .filter(a -> a.getName().equals(name))
                 .findAny();
 
-        if (rv.isPresent())
-            return (Airline)  rv.get();
+        return rv.orElse(null);
 
-        return null;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -53,14 +51,14 @@ public class AirlineController {
         if (airlines.isEmpty())
             return null;
 
-        Optional airline = airlines.stream()
+        Optional<Airline> airline = airlines.stream()
                 .filter(a -> a.getName().equals(name))
                 .findAny();
 
         if (!airline.isPresent())
             return null;
 
-        Airline found = (Airline) airline.get();
+        Airline found = airline.get();
         List<Flight> flights = found
                 .getFlights()
                 .stream()

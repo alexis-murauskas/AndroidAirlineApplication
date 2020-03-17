@@ -73,4 +73,15 @@ public class Airline {
     public Collection<Flight> getFlights() {
         return this.flights;
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public String toString() {
+        String rv = name.toUpperCase();
+
+        for (Flight flight : flights)
+            rv += "\n" + flight.toString();
+
+        return rv;
+    }
 }

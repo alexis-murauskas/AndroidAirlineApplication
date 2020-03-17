@@ -1,9 +1,12 @@
 package edu.pdx.cs410j.alm9.airline;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -23,12 +26,15 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.findViewById(R.id.button_back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(SearchFragment.this)
-                        .navigate(R.id.action_SearchFragment_to_HomeFragment);
-            }
+        view.findViewById(R.id.search_back).setOnClickListener(v -> {
+            InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
+            TextView textviewResults = getView().findViewById(R.id.textview_results);
+            textviewResults.setText(R.string.no_results);
+
+            NavHostFragment.findNavController(SearchFragment.this)
+                    .navigate(R.id.action_SearchFragment_to_HomeFragment);
         });
     }
 }

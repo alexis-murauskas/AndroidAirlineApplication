@@ -94,4 +94,13 @@ public class Flight implements AbstractComparable {
 
         return rv;
     }
+
+    @Override
+    public String toString(){
+        return "Flight no. " + flightNumber
+                + "\nFrom: " + source
+                + "\n" + getDepartureString()
+                + "\nTo: " + destination
+                + "\n" + getArrivalString();
+    }
 }

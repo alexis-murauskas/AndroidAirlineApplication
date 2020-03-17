@@ -32,4 +32,5 @@
     <string name="arrival_m_d_yy_h_mm_am_pm">Arrival (m/d/yy h:mm am/pm)</string>
     <string name="add_fragment_label">AddFragment</string>
     <string name="airline_name">Airline name</string>
+    <string name="no_results">No results</string>
 </resources>

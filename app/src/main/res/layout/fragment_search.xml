@@ -5,39 +5,41 @@
     android:orientation="vertical">
 
     <EditText
-        android:id="@+id/textinput_airline"
+        android:id="@+id/searchinput_airline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/required_airline_name" />
 
     <EditText
-        android:id="@+id/textinput_src"
+        android:id="@+id/searchinput_src"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/source_airport" />
 
     <EditText
-        android:id="@+id/textinput_dest"
+        android:id="@+id/searchinput_dest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/destination_airport" />
 
     <ImageButton
         android:id="@+id/button_go"
+        android:onClick="onSearchButtonClick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:src="@android:drawable/ic_menu_search" />
 
     <Button
-        android:id="@+id/button_back"
+        android:id="@+id/search_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/back" />
-    
+
     <TextView
+        android:id="@+id/textview_results"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="No results"/>
+        android:text="@string/no_results"/>
 </LinearLayout>

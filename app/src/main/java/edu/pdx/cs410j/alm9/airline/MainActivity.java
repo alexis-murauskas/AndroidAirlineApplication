@@ -17,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.ParseException;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -103,4 +104,56 @@ public class MainActivity extends AppCompatActivity {
         Snackbar.make(v, message, Snackbar.LENGTH_LONG)
                 .show();
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void onSearchButtonClick(View view) {
+        String results = "";
+
+        try {
+            InputMethodManager inputManager = (InputMethodManager) this.getSystemService(INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
+            EditText airlineInput = findViewById(R.id.searchinput_airline);
+            EditText srcInput = findViewById(R.id.searchinput_src);
+            EditText dstInput = findViewById(R.id.searchinput_dest);
+
+            String airline = airlineInput.getText().toString();
+            String source = srcInput.getText().toString();
+            String destination = dstInput.getText().toString();
+
+            if (source != "" && destination != "")
+                results = GetAirlines(airline, source, destination);
+            else
+                results = GetAirlines(airline);
+
+            if (results != "") {
+                TextView textviewResults =  findViewById(R.id.textview_results);
+                textviewResults.setText(results);
+            }
+
+        } catch (Exception e) {
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public String GetAirlines(String airline) {
+        Airline rv = controller.findAirline(airline);
+
+        if(rv == null)
+            return null;
+
+        return rv.toString();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public String GetAirlines(String airline, String src, String dest) {
+        Airline rv = controller.findAirline(airline, src, dest);
+
+        if(rv == null)
+            return null;
+
+        return rv.toString();
+    }
+
+
 }

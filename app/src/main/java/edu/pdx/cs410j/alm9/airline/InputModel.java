@@ -1,7 +1,5 @@
 package edu.pdx.cs410j.alm9.airline;
 
-import java.util.ArrayList;
-
 public class InputModel {
     public int options;
 
