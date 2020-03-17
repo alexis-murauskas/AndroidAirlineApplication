@@ -1,6 +1,5 @@
 package edu.pdx.cs410j.alm9.airline;
 
-import android.inputmethodservice.InputMethodService;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -21,9 +20,13 @@ import java.text.ParseException;
 
 public class MainActivity extends AppCompatActivity {
 
+    private AirlineController controller;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        controller = new AirlineController();
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -85,13 +88,14 @@ public class MainActivity extends AppCompatActivity {
                     arrive.getText().toString()
             };
 
-            AirlineCommand.parse(array);
+            InputModel flight = AirlineCommand.parse(array);
+            controller.addFlight(flight);
         } catch (NumberFormatException e) {
             message = "Error: Flight code isn't an integer";
         } catch (ArrayIndexOutOfBoundsException e) {
             message = "Error: Arguments could not be parsed";
         } catch (ParseException e) {
-            message = "Errorr: Time is malformatted";
+            message = "Error: Time is malformatted";
         } catch (Exception e) {
             message = "Error" + e.getMessage();
         }
