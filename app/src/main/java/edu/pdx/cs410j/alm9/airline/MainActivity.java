@@ -2,9 +2,11 @@ package edu.pdx.cs410j.alm9.airline;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -13,8 +15,12 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.snackbar.SnackbarContentLayout;
 
 import java.text.ParseException;
 import java.util.List;
@@ -40,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -49,20 +56,20 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_readme) {
-            TextView text = findViewById(R.id.textview_readme);
-            text.setVisibility(View.VISIBLE);
-            ImageButton button = findViewById(R.id.button_close_readme);
-            button.setVisibility(View.VISIBLE);
+            View current = getWindow().getDecorView().getRootView();
+
+            Snackbar snackbar = Snackbar.make(current, R.string.readme, Snackbar.LENGTH_INDEFINITE);
+            snackbar.setAction("Dismiss", view -> {
+                snackbar.dismiss(); });
+
+            TextView view = snackbar.getView().findViewById(R.id.snackbar_text);
+            view.setLines(25);
+            snackbar.show();
+
             return true;
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void onReadmeButtonClick(View view) {
-        TextView text = findViewById(R.id.textview_readme);
-        text.setVisibility(View.INVISIBLE);
-        view.setVisibility(View.INVISIBLE);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -127,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 results = GetAirlines(airline);
 
             if (results != "") {
-                TextView textviewResults =  findViewById(R.id.textview_results);
+                TextView textviewResults = findViewById(R.id.textview_results);
                 textviewResults.setText(results);
             }
 
@@ -139,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
     public String GetAirlines(String airline) {
         Airline rv = controller.findAirline(airline);
 
-        if(rv == null)
+        if (rv == null)
             return null;
 
         return rv.toString();
@@ -149,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
     public String GetAirlines(String airline, String src, String dest) {
         Airline rv = controller.findAirline(airline, src, dest);
 
-        if(rv == null)
+        if (rv == null)
             return null;
 
         return rv.toString();
