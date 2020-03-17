@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             String source = srcInput.getText().toString();
             String destination = dstInput.getText().toString();
 
-            if (source != "" && destination != "")
+            if (!source.isEmpty() && !destination.isEmpty())
                 results = GetAirlines(airline, source, destination);
             else
                 results = GetAirlines(airline);
