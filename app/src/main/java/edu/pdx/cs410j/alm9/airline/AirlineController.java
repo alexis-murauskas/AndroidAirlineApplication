@@ -27,7 +27,7 @@ public class AirlineController {
 
         if (found == null) {
             found = new Airline(model.airline);
-            airlines.add(found);
+            addAirline(found);
         }
 
         found.addFlight(model);
