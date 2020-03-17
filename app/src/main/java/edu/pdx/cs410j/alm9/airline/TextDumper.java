@@ -11,24 +11,17 @@ import java.util.stream.Collectors;
 
 public class TextDumper{
 
-    private String fileName;
-
-    public TextDumper(String fileName) {
-        this.fileName = fileName;
-    }
-
     /**
      * Given an airline object, dump will write it out to a file based on the name of the airline.
      * @param airline to be written out to a file
      * @throws IOException if the parameter is null, or if any errors occur while writing the object to file
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void dump(Airline airline) throws IOException {
+    public static void dump(Airline airline, File file) throws IOException {
         if (airline == null)
             throw new IOException();
 
         try {
-            File file = new File(this.fileName);
             FileWriter writer = new FileWriter(file);
             writer.write(airline.getName());
             String flights = airline.getFlights()

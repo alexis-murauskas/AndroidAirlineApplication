@@ -4,6 +4,7 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +13,40 @@ import java.util.stream.Collectors;
 
 public class AirlineController {
     private List<Airline> airlines;
+    private static String filePrefix = "airline";
 
     public AirlineController() {
-        airlines = new ArrayList<>();
+        this.airlines = new ArrayList<>();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void readAirlines(File path) {
+        int tag = 1;
+        File file = new File(path, filePrefix + tag);
+
+        while (file.isFile()) {
+            try {
+                Airline rv = TextParser.parse(file);
+                airlines.add(rv);
+                ++tag;
+                file = new File(path, filePrefix + tag);
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void writeAirlines(File path) {
+        for (Airline airline : airlines) {
+            try {
+                int pos = airlines.indexOf(airline);
+                File file = new File(path, filePrefix + pos);
+                TextDumper.dump(airline, file);
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
+        }
     }
 
     public void addAirline(Airline airline) {

@@ -8,12 +8,6 @@ import java.io.File;
 import java.util.Scanner;
 
 public class TextParser {
-    private String fileName;
-
-    public TextParser(String fileName) {
-        this.fileName = fileName;
-    }
-
 
     /**
      * TextParser reads in from a specified file. It expects that the file name is already properly formatted,
@@ -23,12 +17,11 @@ public class TextParser {
      * @return An airline object created from the file's contents
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public Airline parse() {
+    public static Airline parse(File file) {
         Airline airline = null;
 
         try {
             String[] input;
-            File file = new File(this.fileName);
             if (!file.isFile())
                 return null;
 
