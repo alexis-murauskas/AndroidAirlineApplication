@@ -8,6 +8,7 @@ public class Flight implements AbstractComparable {
 
     public static final SimpleDateFormat PARSEFORMAT = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
     public static final DateFormat PRETTYFORMAT = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
+    private static final int MSPERMIN = 60000;
 
     private int flightNumber;
     private String source;
@@ -101,6 +102,8 @@ public class Flight implements AbstractComparable {
                 + "\nFrom: " + source
                 + "\n" + getDepartureString()
                 + "\nTo: " + destination
-                + "\n" + getArrivalString();
+                + "\n" + getArrivalString()
+                + "\n(" + ((getArrival().getTime()-getDeparture().getTime())/MSPERMIN)
+                + " mins)";
     }
 }

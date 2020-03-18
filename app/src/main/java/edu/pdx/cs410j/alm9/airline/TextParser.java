@@ -5,6 +5,7 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class TextParser {
@@ -17,7 +18,10 @@ public class TextParser {
      * @return An airline object created from the file's contents
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public static Airline parse(File file) {
+    public static Airline parse(File file) throws IOException {
+        if (file == null)
+            throw new IOException();
+
         Airline airline = null;
 
         try {

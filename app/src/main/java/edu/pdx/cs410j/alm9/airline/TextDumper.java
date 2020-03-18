@@ -18,7 +18,7 @@ public class TextDumper{
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public static void dump(Airline airline, File file) throws IOException {
-        if (airline == null)
+        if (airline == null || file == null)
             throw new IOException();
 
         try {
@@ -29,9 +29,9 @@ public class TextDumper{
                     .map(
                             f -> "\n" + f.getNumber()
                                     + ";" + f.getSource()
-                                    + ";" + Flight.PARSEFORMAT.format(f.getDeparture()).replace(" ", ";")
+                                    + ";" + Flight.PARSEFORMAT.format(f.getDeparture())
                                     + ";" + f.getDestination()
-                                    + ";" + Flight.PARSEFORMAT.format(f.getArrival()).replace(" ", ";")
+                                    + ";" + Flight.PARSEFORMAT.format(f.getArrival())
                     )
                     .collect(Collectors.joining(""));
 
